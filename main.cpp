@@ -26,6 +26,12 @@ int main(int argc, char *argv[])
 		else if((arg1 == "receive") || (arg1 == "Receive")){
 			std::cout << "Receive command used\n";
 			std::string localip = execute("hostname -i");
+			if(localip.length() >= 10){
+				if (localip.find("192.168.0.") != std::string::npos) {
+					std::cout << "Found local ip begins with 192.168.0.\n";
+					localip.erase(0,10);
+				}
+			}
 			if(argc == 2){
 				std::cout << "Use command on sender computer: " << argv[0] << " send file.txt " << localip;
 				system("nc -l -p 1234 > out.file");
@@ -35,6 +41,9 @@ int main(int argc, char *argv[])
 			if(argc==4){
 				std::string arg2 = argv[2];
 				std::string arg3 = argv[3];
+				if(arg3.length() <= 3){
+					arg3 = "192.168.0." + arg3;
+				}
 				std::string cmd = "nc -w 3 " + arg3 + " 1234 < " + arg2;
 				char* command = const_cast<char*>(cmd.c_str());
 				std::cout << "Send command used with code " << arg2 << " " << arg3 << "\n";
