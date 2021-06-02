@@ -20,10 +20,10 @@ int main(int argc, char *argv[])
 	if(execute("whereis nc").length() > 3) {
 		usewhichnc = 0;
 	}else{
-		if(execute("where ncat").length() > 5) {
+		if(execute("whereis ncat").length() > 5) {
 			usewhichnc = 1;
 		}else{
-			if(execute("where netcat").length() > 7){
+			if(execute("whereis netcat").length() > 7){
 				usewhichnc = 2;
 			}
 		}
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 		std::string arg1 = argv[1];
 		if ((arg1 == "-h") || (arg1 == "--help") || (arg1 == "Help") || (arg1 == "help")){
 			std::cout << "Help command used\n";
-			std::cout << "Usage: \n" << "   Send a file: " << argv[0] << " send file.txt secret-code\n" << "   Receive a file: " << argv[0] << " receive\n";
+			std::cout << "Usage: \n" << "   Send a file: " << argv[0] << " send file.txt ip-address\n" << "   Receive a file: " << argv[0] << " receive\n";
 		}
 		else if((arg1 == "receive") || (arg1 == "Receive")){
 			std::cout << "Receive command used\n";
