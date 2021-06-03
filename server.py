@@ -13,18 +13,35 @@ while True:
     print('Got connection from', addr)
     data = conn.recv(4096)
     
+    file = 'received_file'
+        
+    counter = 0
+    
+    a = 0
+    while a != 1:
+        print('checking output file existence')
+        try:
+            with open(file, 'r') as f:
+                f.close()
+            counter = counter + 1
+            file = 'received_file' + str(counter)
+            print(file)
+            print('file already exists')
+            a = 0
+        except:
+            a = 1
+    
+    
     print('Receiving file')
-    open('received_file', 'w').close()
-    with open('received_file', 'wb') as f:
+    open(file, 'w').close()
+    with open(file, 'wb') as f:
         print('file opened')
-        while (data):
+        while data != b'':
             print('receiving data...')
             f.write(data)
             f.flush()
             data = conn.recv(4096)
+        print('Done receiving')
         f.close()
-    
-    filename = repr(conn.recv(4096))
-    print('Filename is: ' + filename)
     
     conn.close()
